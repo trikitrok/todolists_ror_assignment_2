@@ -17,4 +17,12 @@ class Profile < ActiveRecord::Base
   def boy_not_named_sue
     errors.add(:first_name, "can't be Sue") if first_name == "Sue"
   end
+
+  def self.get_all_profiles min_year, max_year
+    self.where(
+      "birth_year BETWEEN :min_year AND :max_year", 
+      min_year: min_year, 
+      max_year: max_year
+    ).order(:birth_year)
+  end
 end
